@@ -1,14 +1,12 @@
-/* ProblemSeventeen.c*/
+/*-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ |	Filename:	ProblemEighteen.c
+ +-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+*/
 #include "ProblemSeventeen.h"
 
-/* Function: letters_for_ones
- * @param:	ones, a number between 1-10 whos letters will be counted.
- *			add_and, will determine if an and is needed to be added, 1 if so, 0 otherwiser.
- * @return:	letters, the letters required to write the number passed in.
- *
- * Will check if an and is needed to be added, and adds 3 letters if so. Then, checks which number is in the ones spot, 
- * stringifies the matching (so that the string holds the variable name one/two/ect), then finds the length of the string
- * and returns it.
+/*-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ |	Function:	letters_for_ones
+ +-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 */
 int letters_for_ones(int ones, int add_and){
 	int letters = 0;
@@ -49,22 +47,18 @@ int letters_for_ones(int ones, int add_and){
 	return letters;
 }
 
-/* Function:	letters_for_special_ones
- * @param:	ones, a number between 11-19 whos written length will be checked.
- *			add_and, will determine if an and is needed to be added, 1 if so, 0 otherwiser.
- * @return:	letters, the required letters to write the given number.
- *
- * Will add an add if pending, Then, will match the number with the respected macro, get the macro name, then convert the name
- * into its length, and add that to the letters. The final result is returned.
- */
+/*-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ |	Function:	letters_for_special_ones
+ +-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+*/
 int letters_for_special_ones(int ones, int add_and){
 	int letters = 0;
 	/*Adds an and if necissary*/
 	if(add_and){
 		letters+=AND_LEN;
 	}
-	/* Matches the number to the macro, stringifies to get the variable name, then adds the length of the variable name to 
-	 * the latter count.*/
+	/* Matches the number to the macro, stringifies to get the variable name, then adds the
+	   length of the variable name to the latter count.*/
 	if(ones==ELEVEN){
 		letters+= strlen(stringify(ELEVEN));
 	}
@@ -95,16 +89,10 @@ int letters_for_special_ones(int ones, int add_and){
 	return letters;
 }
 
-/* Function:	letters_for_tens
- * @param:	ones, a number below 100 whos written length will be checked.
- *			add_and, will determine if an and is needed to be added, 1 if so, 0 otherwiser.
- * @return:	letters, the required letters to write the given number.
- *
- * If the given number is between 11-19, a special case will be called, and the letters
- * will be returned. Otherwise, if the number is greater or equal to ten, will add an and if pending, and the value will
- * be matched with the respected macro, whos variable name length will be added to the letter count. The number is modded
- * with ten and the letters for ones required is found, added to letters, and letters is returned.
- */
+/*-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ |	Function:	letters_for_tens
+ +-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+*/
 int letters_for_tens(int number, int add_and){
 	int tens = ((int) number/TEN)*TEN;
 	int letters = 0;	
@@ -148,15 +136,10 @@ int letters_for_tens(int number, int add_and){
 	return letters + letters_for_ones(number%TEN,add_and);
 }
 
-/* Function:	letters_for_hundreds
- * @param:	number, the number below 1000 whos letter count will be found.
- * 			add_and, determines if an and will be added, 1 if so, 0 if not.
- * @return:	letters, the total letters required to write the number.
- *
- * Will find the number of of the hundreds place. If it is, and an and is needed, 3 is added. If over one hundred, 
- * the letters required for the leading digit is found, and added to the letters required for "Hundred". The letters
- * for below 100 are then found and added to the letter count. The result is returned.
- */
+/*-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ |	Function:	letters_for_hundreds
+ +-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+*/
 int letters_for_hundreds(int number, int add_and){
 	int hundreds = ((int)number/HUNDRED)*HUNDRED;
 	int letters = 0;
@@ -174,14 +157,10 @@ int letters_for_hundreds(int number, int add_and){
 	return letters + letters_for_tens(number%HUNDRED,add_and);
 }
 
-/* Function:	letters_for_thousands
- * @param:	number, the number whos required letters will be found.
- *			add_and, determines if an and is needed. 1 means there is, 0 means not.
- * @return:	letters, the total letter count required to write the number.
- *
- * Finds the number of the thousands place. If greater or equal to a thousand, the leading number's length is found
- * and added, and the and flag is set to one. The letters required for the hundreds is then found.
- */
+/*-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ |	Function:	letters_for_thousands
+ +-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+*/
 int letters_for_thousands(int number, int add_and){
 	int thousands = ((int) number/THOUSAND)*THOUSAND;
 	int letters = 0;
@@ -196,13 +175,10 @@ int letters_for_thousands(int number, int add_and){
 	return letters + letters_for_hundreds(number%THOUSAND,add_and);
 }
 
-/* Function: find_letters_upto
- * @param:	upto, the highest number whos letter count will be added.
- * @return:	letters, the number of all letters required to write the numbers.
- *
- * Will go through every number, call upon a function to find how many letters are required to write each number,
- * add that number to the total letters. Once all letters have been added, the number is returned.
- */
+/*-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ |	Function:	find_letters_upto
+ +-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+*/
 int find_letters_upto(int upto){
 	int letters;
 	int i;
